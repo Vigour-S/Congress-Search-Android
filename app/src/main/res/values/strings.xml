@@ -28,4 +28,28 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Congress API</string>
     <string name="title_activity_about_me">AboutMeActivity</string>
+
+    <!-- Details Page -->
+    <string name="name">Name: </string>
+    <string name="email">Email: </string>
+    <string name="start_term">Start Term: </string>
+    <string name="end_term">End Term: </string>
+    <string name="state">State: </string>
+    <string name="contact">Contact: </string>
+    <string name="chamber">Chamber: </string>
+    <string name="term">Term: </string>
+    <string name="office">Office: </string>
+    <string name="nothing">N.A.</string>
+    <string name="bill_id">Bill ID: </string>
+    <string name="title">Title: </string>
+    <string name="bill_type">Bill Type: </string>
+    <string name="sponsor">Sponsor: </string>
+    <string name="status">Status: </string>
+    <string name="introduced_on">Introduced On: </string>
+    <string name="congress_url">Congress URL: </string>
+    <string name="version">Version Status: </string>
+    <string name="bill_url">Bill URL: </string>
+    <string name="none">None</string>
+    <string name="committee_id">Committee ID: </string>
+    <string name="parent_com">Parent Committee: </string>
 </resources>

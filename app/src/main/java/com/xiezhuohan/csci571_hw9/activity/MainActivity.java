@@ -3,9 +3,7 @@ package com.xiezhuohan.csci571_hw9.activity;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -94,19 +92,6 @@ public class MainActivity extends AppCompatActivity {
     private void loadNavHeader() {
         // header text
         txtName.setText("Congress API");
-
-//        // loading header background image
-//        Glide.with(this).load(urlNavHeaderBg)
-//                .crossFade()
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(imgNavHeaderBg);
-//
-//        // Loading profile image
-//        Glide.with(this).load(urlProfileImg)
-//                .crossFade()
-//                .thumbnail(0.5f)
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .into(imgProfile);
     }
 
     /***

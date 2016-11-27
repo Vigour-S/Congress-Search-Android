@@ -4,4 +4,11 @@
     <color name="colorPrimaryDark">#3B3B3B</color>
     <color name="colorAccent">#FFFFFF</color>
 
+    <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="apps">#295055</color>
+    <color name="gray">#CCC</color>
+    <color name="dark_gray">#7E7B7F</color>
+    <color name="lightgray">#EEEEEE</color>
+    <color name="light_yellow">#FFBC02</color>
 </resources>

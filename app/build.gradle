@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.xiezhuohan.csci571_hw9"
-        minSdkVersion 23
+        minSdkVersion 22
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -24,5 +24,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
+
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'org.apache.commons:commons-lang3:3.5'
+    compile 'com.google.code.gson:gson:2.8.0'
 
 }

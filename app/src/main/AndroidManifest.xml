@@ -17,6 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".activity.LegisDetails"
+                  android:theme="@style/MyActionBar">
+            <intent-filter>
+                <action android:name="com.xiezhuohan.csci571_hw9.viewlegis"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+            </intent-filter>
+        </activity>
         <activity
                 android:name=".activity.AboutMeActivity"
                 android:label="@string/title_activity_about_me"
