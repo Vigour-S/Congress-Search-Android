@@ -110,8 +110,8 @@
                     android:gravity="end"
                     android:id="@+id/tv_name_data"
                     android:textSize="@dimen/detail_data"
-                    android:textColor="@color/dark_gray"
                     android:layout_width="@dimen/data_width"
+                    android:textColor="@color/dark_gray"
                     android:paddingEnd="@dimen/table_cell_padding"
                     android:layout_marginTop="@dimen/table_row_margin"
                     />

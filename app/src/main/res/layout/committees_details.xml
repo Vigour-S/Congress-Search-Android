@@ -34,7 +34,9 @@
                             android:layout_weight="1"
                             android:id="@+id/textView8"
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textStyle="bold"
                             android:textSize="@dimen/detail_header"
+                            android:paddingStart="@dimen/table_cell_padding"
                             android:layout_width="wrap_content"/>
 
                     <TextView
@@ -44,7 +46,9 @@
                             android:layout_gravity="right"
                             android:id="@+id/com_id_data"
                             android:textSize="@dimen/detail_data"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:textColor="@color/dark_gray"
+                            android:paddingEnd="@dimen/table_cell_padding"
+                            android:layout_marginTop="@dimen/table_row_margin"
                             android:layout_width="100dp" />
                 </TableRow>
 
@@ -56,7 +60,9 @@
                             android:layout_weight="1"
                             android:id="@+id/tv_email"
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:textSize="@dimen/detail_header"/>
+                            android:textStyle="bold"
+                            android:textSize="@dimen/detail_header"
+                            android:paddingStart="@dimen/table_cell_padding"/>
 
                     <TextView
                             android:text="@string/nothing"
@@ -65,7 +71,10 @@
                             android:layout_gravity="right"
                             android:id="@+id/com_name_data"
                             android:textSize="@dimen/detail_data"
-                            android:layout_width="100dp" />
+                            android:layout_width="100dp"
+                            android:textColor="@color/dark_gray"
+                            android:paddingEnd="@dimen/table_cell_padding"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
                 </TableRow>
 
 
@@ -77,15 +86,26 @@
                             android:layout_weight="1"
                             android:id="@+id/tv_chamber"
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:textSize="@dimen/detail_header"/>
+                            android:textStyle="bold"
+                            android:textSize="@dimen/detail_header"
+                            android:paddingStart="@dimen/table_cell_padding"/>
 
+                    <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/s"
+                            android:id="@+id/chamber_icon"
+                            android:layout_weight="1"/>
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
                             android:layout_gravity="right"
                             android:id="@+id/com_chamber_data"
-                            android:textSize="@dimen/detail_data" />
+                            android:textSize="@dimen/detail_data"
+                            android:textColor="@color/dark_gray"
+                            android:paddingEnd="@dimen/table_cell_padding"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
                 </TableRow>
 
                 <TableRow
@@ -96,7 +116,9 @@
                             android:layout_weight="1"
                             android:id="@+id/tv_contact"
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:textSize="@dimen/detail_header"/>
+                            android:textStyle="bold"
+                            android:textSize="@dimen/detail_header"
+                            android:paddingStart="@dimen/table_cell_padding"/>
 
                     <TextView
                             android:text="@string/nothing"
@@ -104,7 +126,10 @@
                             android:gravity="right"
                             android:layout_gravity="right"
                             android:id="@+id/com_parent_data"
-                            android:textSize="@dimen/detail_data" />
+                            android:textSize="@dimen/detail_data"
+                            android:textColor="@color/dark_gray"
+                            android:paddingEnd="@dimen/table_cell_padding"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
                 </TableRow>
                 <TableRow
                         android:layout_width="match_parent"
@@ -114,7 +139,9 @@
                             android:layout_weight="1"
                             android:id="@+id/tv_startTerm"
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:textSize="@dimen/detail_header"/>
+                            android:textStyle="bold"
+                            android:textSize="@dimen/detail_header"
+                            android:paddingStart="@dimen/table_cell_padding"/>
 
                     <TextView
                             android:text="@string/nothing"
@@ -122,7 +149,10 @@
                             android:gravity="right"
                             android:layout_gravity="right"
                             android:id="@+id/com_contact_data"
-                            android:textSize="@dimen/detail_data" />
+                            android:textSize="@dimen/detail_data"
+                            android:textColor="@color/dark_gray"
+                            android:paddingEnd="@dimen/table_cell_padding"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
                 </TableRow>
                 <TableRow
                         android:layout_width="match_parent"
@@ -132,7 +162,9 @@
                             android:layout_weight="1"
                             android:id="@+id/tv_endTerm"
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                            android:textSize="@dimen/detail_header"/>
+                            android:textStyle="bold"
+                            android:textSize="@dimen/detail_header"
+                            android:paddingStart="@dimen/table_cell_padding"/>
 
                     <TextView
                             android:text="@string/nothing"
@@ -140,7 +172,10 @@
                             android:gravity="right"
                             android:layout_gravity="right"
                             android:id="@+id/com_office_data"
-                            android:textSize="@dimen/detail_data" />
+                            android:textSize="@dimen/detail_data"
+                            android:textColor="@color/dark_gray"
+                            android:paddingEnd="@dimen/table_cell_padding"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
                 </TableRow>
             </TableLayout>
         </LinearLayout>

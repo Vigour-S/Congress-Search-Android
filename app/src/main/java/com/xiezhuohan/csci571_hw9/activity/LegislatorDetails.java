@@ -49,16 +49,17 @@ public class LegislatorDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.legis_details);
-        Toolbar mtoolbar = (Toolbar) findViewById(R.id.tool_bar);
-        setSupportActionBar(mtoolbar);
-        mtoolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
-        mtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        //setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Legislator Info");
+
         preferences=getSharedPreferences("favor_legis", MODE_APPEND);
         photo=(ImageView)findViewById(R.id.legis_photo);
         name=(TextView)findViewById(R.id.tv_name_data);
@@ -135,21 +136,20 @@ public class LegislatorDetails extends AppCompatActivity {
         favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(saved==false){
+                if(!saved){
                     favoriteBtn.setImageResource(R.drawable.star_filled);
                     saved=true;
                     SharedPreferences.Editor editor=preferences.edit();
                     Gson gson=new Gson();
                     editor.putString(legislator.bioguide_id,gson.toJson(legislator, Legislator.class));
-                    editor.commit();
+                    editor.apply();
                 }
                 else{
                     favoriteBtn.setImageResource(R.drawable.star_empty);
                     saved=false;
                     SharedPreferences.Editor editor=preferences.edit();
-                    Gson gson=new Gson();
                     editor.remove(legislator.bioguide_id);
-                    editor.commit();
+                    editor.apply();
                 }
             }
         });

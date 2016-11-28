@@ -10,7 +10,6 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
-
 import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
 import com.xiezhuohan.csci571_hw9.model.committees.Committee;
@@ -25,40 +24,41 @@ public class CommitteeDetails extends AppCompatActivity {
     private TextView committee_parent;
     private TextView committee_contact;
     private TextView committee_office;
+    private ImageView committee_chamber_icon;
 
     private ImageSwitcher favor_btn;
     private Committee committee;
     private boolean saved;
     SharedPreferences preferences;
+
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.committees_details);
-        preferences=getSharedPreferences("favor_committees", MODE_APPEND);
-        final SharedPreferences.Editor editor=preferences.edit();
-        Toolbar mtoolbar = (Toolbar) findViewById(R.id.tool_bar_bill);
-        setSupportActionBar(mtoolbar);
-        mtoolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
-        mtoolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        preferences = getSharedPreferences("favor_committees", MODE_APPEND);
+        final SharedPreferences.Editor editor = preferences.edit();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar_bill);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        getSupportActionBar().setTitle("Committee Info");
+        favor_btn = (ImageSwitcher)findViewById(R.id.favorite_button);
+        committee_id = (TextView)findViewById(R.id.com_id_data);
+        committee_name = (TextView)findViewById(R.id.com_name_data);
+        committee_chamber = (TextView)findViewById(R.id.com_chamber_data);
+        committee_parent = (TextView)findViewById(R.id.com_parent_data);
+        committee_office = (TextView)findViewById(R.id.com_office_data);
+        committee_contact = (TextView)findViewById(R.id.com_contact_data);
+        committee_chamber_icon = (ImageView)findViewById(R.id.chamber_icon);
 
-        favor_btn=(ImageSwitcher)findViewById(R.id.favorite_button);
-        committee_id=(TextView)findViewById(R.id.com_id_data);
-        committee_name=(TextView)findViewById(R.id.com_name_data);
-        committee_chamber=(TextView)findViewById(R.id.com_chamber_data);
-        committee_parent=(TextView)findViewById(R.id.com_parent_data);
-        committee_office=(TextView)findViewById(R.id.com_office_data);
-        committee_contact=(TextView)findViewById(R.id.com_contact_data);
-
-
-
-        Intent intent=getIntent();
-        final Gson gson=new Gson();
-        committee=gson.fromJson(intent.getStringExtra("committee_detail"), Committee.class);
+        Intent intent = getIntent();
+        final Gson gson = new Gson();
+        committee = gson.fromJson(intent.getStringExtra("committee_detail"), Committee.class);
 
         favor_btn.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -69,33 +69,36 @@ public class CommitteeDetails extends AppCompatActivity {
         favor_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(saved==false){
+                if (!saved) {
                     favor_btn.setImageResource(R.drawable.star_filled);
-                    saved=true;
+                    saved = true;
                     editor.putString(committee.committee_id, gson.toJson(committee, Committee.class));
-                    editor.commit();
-                }
-                else {
+                    editor.apply();
+                } else {
                     favor_btn.setImageResource(R.drawable.star_empty);
-                    saved=false;
+                    saved = false;
                     editor.remove(committee.committee_id);
-                    editor.commit();
+                    editor.apply();
                 }
             }
         });
-        if(preferences.getString(committee.committee_id, "0").equals("0")){
-            saved=false;
+        if (preferences.getString(committee.committee_id, "0").equals("0")) {
+            saved = false;
             favor_btn.setImageResource(R.drawable.star_empty);
-        }
-        else {
-            saved=true;
+        } else {
+            saved = true;
             favor_btn.setImageResource(R.drawable.star_filled);
         }
         committee_id.setText(committee.committee_id);
         committee_name.setText(committee.name);
         committee_chamber.setText(committee.chamber);
-        committee_contact.setText(committee.phone);
-        committee_parent.setText(committee.parent_committee_id);
-        committee_office.setText(committee.office);
+        if (committee.chamber.equals("house"))
+            committee_chamber_icon.setImageResource(R.drawable.h);
+        if (committee.phone != null && !committee.phone.equals(""))
+            committee_contact.setText(committee.phone);
+        if (committee.parent_committee_id != null && !committee.parent_committee_id.equals(""))
+            committee_parent.setText(committee.parent_committee_id);
+        if (committee.office != null && !committee.office.equals(""))
+            committee_office.setText(committee.office);
     }
 }

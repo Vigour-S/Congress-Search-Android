@@ -14,15 +14,12 @@ import android.widget.TabHost;
 
 import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
+import com.xiezhuohan.csci571_hw9.Utils.HttpUtils;
 import com.xiezhuohan.csci571_hw9.adapter.BillJsonAdapter;
 import com.xiezhuohan.csci571_hw9.model.bills.Bill;
 import com.xiezhuohan.csci571_hw9.model.bills.Bills;
 
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -33,8 +30,6 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
     TabHost tabHost;
     private ListView lstView ;
     private ListView lstNewBills;
-    private String jsonUrl="http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=activeBill";
-    private String jsonUrl2="http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=newBill";
     private List<Bill> itemBeanList;
     private List<Bill> newBillList;
     @Override
@@ -59,8 +54,8 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
         lstView = (ListView) billView.findViewById(R.id.activeBillList);
         lstNewBills=(ListView) billView.findViewById((R.id.newBillList));
 
-        new LegisAsyncTask().execute(jsonUrl,"1");
-        new LegisAsyncTask().execute(jsonUrl2,"2");
+        new LegisAsyncTask().execute(HttpUtils.getAllActiveBills,"1");
+        new LegisAsyncTask().execute(HttpUtils.getAllNewBills,"2");
         tabHost =(TabHost) billView.findViewById(R.id.tabhost);
         tabHost.setup();
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Active Bills").setContent(R.id.tab1));
@@ -97,7 +92,6 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
         @Override
         protected void onPostExecute(List<Bill> result) {
             super.onPostExecute(result);
-            //解析完毕后，进行适配器的数据设置填充
             if(key.equals("1")) {
                 BillJsonAdapter adapter = new BillJsonAdapter(getActivity(), itemBeanList);
                 lstView.setAdapter(adapter);
@@ -115,30 +109,11 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
     }
     public List<Bill> getJsonData(String jsonUrl, String key) {
         try {
-            //创建url http地址
-            URL httpUrl = new URL(jsonUrl);
-            //打开http 链接
-            HttpURLConnection connection = (HttpURLConnection) httpUrl
-                    .openConnection();
-            //设置参数  请求为get请求
-            connection.setReadTimeout(5000);
-            connection.setRequestMethod("GET");
 
-            //connection.getInputStream()得到字节输入流，InputStreamReader从字节到字符的桥梁，外加包装字符流
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
-            //创建字符串容器
-            StringBuffer sb = new StringBuffer();
-            String str = "";
-            //行读取
-            while ((str = bufferedReader.readLine()) != null) {
-                // 当读取完毕，就添加到容器中
-                sb.append(str);
-            }
-
+            String results = HttpUtils.getJSONFromHTTP(jsonUrl);
             Gson gson=new Gson();
             if(key.equals("1")) {
-                itemBeanList = gson.fromJson(sb.toString(), Bills.class).results;
+                itemBeanList = gson.fromJson(results, Bills.class).results;
 
                 Collections.sort(itemBeanList, new Comparator<Bill>() {
                     public int compare(Bill o1, Bill o2) {
@@ -149,7 +124,7 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
                 });
             }
             else{
-                newBillList= gson.fromJson(sb.toString(), Bills.class).results;
+                newBillList= gson.fromJson(results, Bills.class).results;
                 Collections.sort(newBillList, new Comparator<Bill>() {
                     public int compare(Bill o1, Bill o2) {
                         if (o1.bill_id == o2.bill_id)

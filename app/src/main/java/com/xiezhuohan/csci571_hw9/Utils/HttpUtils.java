@@ -11,7 +11,12 @@ import java.net.URL;
 
 public class HttpUtils {
 
-    public static String getJSONfromHTTP(String url) {
+    public static String getAllLegislators = "http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=legis&cham=all";
+    public static String getAllActiveBills = "http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=activeBill";
+    public static String getAllNewBills = "http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=newBill";
+    public static String getAllCommittees = "http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=allCommittee";
+
+    public static String getJSONFromHTTP(String url) {
         StringBuffer sb = new StringBuffer();
         try {
             URL httpUrl = new URL(url);
