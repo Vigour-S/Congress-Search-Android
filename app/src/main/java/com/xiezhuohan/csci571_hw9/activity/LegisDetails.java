@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import com.xiezhuohan.csci571_hw9.R;
-import com.xiezhuohan.csci571_hw9.beans.DetailBean;
+import com.xiezhuohan.csci571_hw9.model.legislators.DetailBean;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,6 +48,7 @@ public class LegisDetails extends AppCompatActivity {
     private TextView start_term;
     private TextView end_term;
     private ProgressBar termBar;
+    private TextView bar_percentage;
     private TextView office;
     private TextView state;
     private ImageSwitcher favoriteBtn;
@@ -78,6 +79,7 @@ public class LegisDetails extends AppCompatActivity {
         start_term=(TextView)findViewById(R.id.tv_startTerm_data);
         end_term=(TextView)findViewById(R.id.tv_endTerm_data);
         termBar=(ProgressBar)findViewById(R.id.termProgress);
+        bar_percentage = (TextView)findViewById(R.id.tv_progress_horizontal);
         office = (TextView)findViewById(R.id.tv_office_data);
         state = (TextView)findViewById(R.id.tv_state_data);
         favoriteBtn=(ImageSwitcher)findViewById(R.id.favorite_btn);
@@ -158,7 +160,7 @@ public class LegisDetails extends AppCompatActivity {
             end_term.setText(personInfo.endTerm);
             termBar.setProgress((int)(personInfo.termProgress*100));
             String strProgress = String.valueOf((int)(personInfo.termProgress*100)) + "%";
-
+            bar_percentage.setText(strProgress);
             if(preferences.getString(personInfo.bioId, "0").equals("0")){
                 saved=false;
                 favoriteBtn.setImageResource(R.drawable.star_empty);

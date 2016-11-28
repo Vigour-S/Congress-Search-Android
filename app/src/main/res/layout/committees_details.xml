@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical" android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <include
+            android:id="@+id/tool_bar_bill"
+            layout="@layout/tool_bar"
+            />
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <ImageSwitcher
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:id="@+id/favorite_button" />
+
+            <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                    <TextView
+                            android:text="@string/committee_id"
+                            android:layout_weight="1"
+                            android:id="@+id/textView8"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="@dimen/detail_header"
+                            android:layout_width="wrap_content"/>
+
+                    <TextView
+                            android:text="@string/nothing"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:layout_gravity="right"
+                            android:id="@+id/com_id_data"
+                            android:textSize="@dimen/detail_data"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:layout_width="100dp" />
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    <TextView
+                            android:text="@string/name"
+                            android:layout_weight="1"
+                            android:id="@+id/tv_email"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="@dimen/detail_header"/>
+
+                    <TextView
+                            android:text="@string/nothing"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:layout_gravity="right"
+                            android:id="@+id/com_name_data"
+                            android:textSize="@dimen/detail_data"
+                            android:layout_width="100dp" />
+                </TableRow>
+
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    <TextView
+                            android:text="@string/chamber"
+                            android:layout_weight="1"
+                            android:id="@+id/tv_chamber"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="@dimen/detail_header"/>
+
+                    <TextView
+                            android:text="@string/nothing"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:layout_gravity="right"
+                            android:id="@+id/com_chamber_data"
+                            android:textSize="@dimen/detail_data" />
+                </TableRow>
+
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    <TextView
+                            android:text="@string/parent_com"
+                            android:layout_weight="1"
+                            android:id="@+id/tv_contact"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="@dimen/detail_header"/>
+
+                    <TextView
+                            android:text="@string/nothing"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:layout_gravity="right"
+                            android:id="@+id/com_parent_data"
+                            android:textSize="@dimen/detail_data" />
+                </TableRow>
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    <TextView
+                            android:text="@string/contact"
+                            android:layout_weight="1"
+                            android:id="@+id/tv_startTerm"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="@dimen/detail_header"/>
+
+                    <TextView
+                            android:text="@string/nothing"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:layout_gravity="right"
+                            android:id="@+id/com_contact_data"
+                            android:textSize="@dimen/detail_data" />
+                </TableRow>
+                <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    <TextView
+                            android:text="@string/office"
+                            android:layout_weight="1"
+                            android:id="@+id/tv_endTerm"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                            android:textSize="@dimen/detail_header"/>
+
+                    <TextView
+                            android:text="@string/nothing"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:layout_gravity="right"
+                            android:id="@+id/com_office_data"
+                            android:textSize="@dimen/detail_data" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

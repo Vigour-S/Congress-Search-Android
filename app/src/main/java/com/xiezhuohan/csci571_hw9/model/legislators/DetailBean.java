@@ -1,4 +1,4 @@
-package com.xiezhuohan.csci571_hw9.beans;
+package com.xiezhuohan.csci571_hw9.model.legislators;
 
 /**
  * Created by xiezhuohan on 11/26/16.

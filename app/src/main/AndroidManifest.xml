@@ -25,6 +25,21 @@
 
             </intent-filter>
         </activity>
+        <activity android:name=".activity.BillDetail"
+                  android:theme="@style/MyActionBar">
+            <intent-filter>
+                <action android:name="com.xiezhuohan.csci571_hw9.bills"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.CommitteeDetails"
+                  android:theme="@style/MyActionBar">
+            <intent-filter>
+                <action android:name="com.xiezhuohan.csci571_hw9.committees"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+        </activity>
         <activity
                 android:name=".activity.AboutMeActivity"
                 android:label="@string/title_activity_about_me"

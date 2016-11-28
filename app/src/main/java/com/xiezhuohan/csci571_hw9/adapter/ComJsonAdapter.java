@@ -5,26 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 import com.xiezhuohan.csci571_hw9.R;
-import com.xiezhuohan.csci571_hw9.model.legislators.Legislator;
+import com.xiezhuohan.csci571_hw9.model.committees.CommitteeItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by xiezhuohan on 11/26/16.
+ * Created by xiezhuohan on 11/27/16.
  */
-
-public class JsonAdapter extends BaseAdapter {
-    List<Legislator> data = new ArrayList<Legislator>();
+public class ComJsonAdapter extends BaseAdapter {
+    List<CommitteeItem> data = new ArrayList<CommitteeItem>();
     LayoutInflater inflater;
 
-
-    public JsonAdapter(Context context, List<Legislator> data) {
+    public ComJsonAdapter(Context context, List<CommitteeItem> data) {
         super();
         this.data = data;
         inflater = LayoutInflater.from(context);
@@ -49,13 +44,13 @@ public class JsonAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.listitem_legis, null);
+            convertView = inflater.inflate(R.layout.listitem_committees, null);
+            viewHolder.committee_id = (TextView) convertView
+                    .findViewById(R.id.tv_com_id);
             viewHolder.name = (TextView) convertView
-                    .findViewById(R.id.tv_name);
-            viewHolder.content = (TextView) convertView
-                    .findViewById(R.id.tv_content);
-            viewHolder.imageView = (ImageView) convertView
-                    .findViewById(R.id.legisimage);
+                    .findViewById(R.id.tv_com_name);
+            viewHolder.chamber = (TextView) convertView
+                    .findViewById(R.id.tv_com_chamber);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -64,15 +59,22 @@ public class JsonAdapter extends BaseAdapter {
         //进行绑定--不会出现图片错位现象--因为viewholder是复用的，会显示复用的那个itme的图片
 //		viewHolder.imageView.setTag(imageViewUrl);
 
+        viewHolder.committee_id.setText(data.get(position).committee_id);
         viewHolder.name.setText(data.get(position).name);
-        viewHolder.content.setText("("+data.get(position).party+") "+data.get(position).state_name+" - District "+data.get(position).district);
-        Picasso.with(convertView.getContext()).load("https://theunitedstates.io/images/congress/original/"+data.get(position).bioguide_id+".jpg").into(viewHolder.imageView);
+        viewHolder.chamber.setText(data.get(position).chamber);
+        //viewHolder.bill_date.setText(data.get(position).sponsor.first_name);
 
+        /**
+         * 这个方式是通过分线程进行图片下载
+         */
+//		new ImageLoaderThread().showImageByThread(viewHolder.imageView, data.get(position).imageViewUrl);
+        /**
+         * 这个方式是进行异步任务方式进行图片加载
+         */
+//		new ImageLoaderAsyncTask().showImageAsyncTask(viewHolder.imageView, data.get(position).imageViewUrl);
         return convertView;
     }
     class ViewHolder{
-        public TextView name,content;
-        public ImageView imageView;
+        public TextView committee_id,name, chamber;
     }
 }
-
