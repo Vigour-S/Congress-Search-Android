@@ -6,6 +6,6 @@ import java.util.List;
  * Created by xiezhuohan on 11/27/16.
  */
 
-public class CommitteeItemList{
-    public List<CommitteeItem> results;
+public class Committees {
+    public List<Committee> results;
 }

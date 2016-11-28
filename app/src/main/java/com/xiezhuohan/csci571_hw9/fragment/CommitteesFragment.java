@@ -24,8 +24,8 @@ import java.util.List;
 
 import com.xiezhuohan.csci571_hw9.R;
 import com.xiezhuohan.csci571_hw9.adapter.ComJsonAdapter;
-import com.xiezhuohan.csci571_hw9.model.committees.CommitteeItem;
-import com.xiezhuohan.csci571_hw9.model.committees.CommitteeItemList;
+import com.xiezhuohan.csci571_hw9.model.committees.Committee;
+import com.xiezhuohan.csci571_hw9.model.committees.Committees;
 
 
 public class CommitteesFragment extends Fragment implements AdapterView.OnItemClickListener, TabHost.TabContentFactory, TabHost.OnTabChangeListener{
@@ -34,10 +34,10 @@ public class CommitteesFragment extends Fragment implements AdapterView.OnItemCl
     private ListView lstHouse;
     private ListView lstSenate;
     private ListView lstJoint;
-    private List<CommitteeItem> comHouseList;
-    private List<CommitteeItem> comSenateList;
-    private List<CommitteeItem> comJointList;
-    private List<CommitteeItem> comAllList;
+    private List<Committee> comHouseList;
+    private List<Committee> comSenateList;
+    private List<Committee> comJointList;
+    private List<Committee> comAllList;
     private String jsonUrl="http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=allCommittee";
     @Nullable
     @Override
@@ -60,8 +60,8 @@ public class CommitteesFragment extends Fragment implements AdapterView.OnItemCl
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent1=new Intent("com.xiezhuohan.csci571_hw9.committees");
-                CommitteeItem item=(CommitteeItem)parent.getItemAtPosition(position);
-                intent1.putExtra("committee_detail", gson.toJson(item, CommitteeItem.class));
+                Committee item=(Committee)parent.getItemAtPosition(position);
+                intent1.putExtra("committee_detail", gson.toJson(item, Committee.class));
                 startActivity(intent1);
             }
         };
@@ -73,16 +73,16 @@ public class CommitteesFragment extends Fragment implements AdapterView.OnItemCl
         return committeeView;
     }
 
-    class CommitteeAsynsTask extends AsyncTask<String,Void, List<CommitteeItem>> {
+    class CommitteeAsynsTask extends AsyncTask<String,Void, List<Committee>> {
 
         @Override
-        protected List<CommitteeItem> doInBackground(String... params) {
+        protected List<Committee> doInBackground(String... params) {
             return getJsonData(jsonUrl);
         }
 
         @Override
-        protected void onPostExecute(List<CommitteeItem> committeeItems) {
-            super.onPostExecute(committeeItems);
+        protected void onPostExecute(List<Committee> committees) {
+            super.onPostExecute(committees);
 
             ComJsonAdapter adapter1=new ComJsonAdapter(getActivity(), comHouseList);
             lstHouse.setAdapter(adapter1);
@@ -93,7 +93,7 @@ public class CommitteesFragment extends Fragment implements AdapterView.OnItemCl
         }
     }
 
-    public List<CommitteeItem> getJsonData(String jsonUrl) {
+    public List<Committee> getJsonData(String jsonUrl) {
         try {
             URL httpUrl=new URL(jsonUrl);
             HttpURLConnection connection=(HttpURLConnection)httpUrl.openConnection();
@@ -108,11 +108,11 @@ public class CommitteesFragment extends Fragment implements AdapterView.OnItemCl
             }
             Log.e("TAG", ""+sb.toString());
             Gson gson=new Gson();
-            comAllList=gson.fromJson(sb.toString(),CommitteeItemList.class).results;
-            comHouseList=new ArrayList<CommitteeItem>();
-            comSenateList=new ArrayList<CommitteeItem>();
-            comJointList=new ArrayList<CommitteeItem>();
-            for(CommitteeItem entry: comAllList){
+            comAllList=gson.fromJson(sb.toString(),Committees.class).results;
+            comHouseList=new ArrayList<Committee>();
+            comSenateList=new ArrayList<Committee>();
+            comJointList=new ArrayList<Committee>();
+            for(Committee entry: comAllList){
                 if(entry.chamber.equals("house")){
                     comHouseList.add(entry);
                 }

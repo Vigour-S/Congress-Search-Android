@@ -13,7 +13,7 @@ import android.widget.ViewSwitcher;
 
 import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
-import com.xiezhuohan.csci571_hw9.model.committees.CommitteeItem;
+import com.xiezhuohan.csci571_hw9.model.committees.Committee;
 
 /**
  * Created by xiezhuohan on 11/27/16.
@@ -27,7 +27,7 @@ public class CommitteeDetails extends AppCompatActivity {
     private TextView committee_office;
 
     private ImageSwitcher favor_btn;
-    private CommitteeItem committee;
+    private Committee committee;
     private boolean saved;
     SharedPreferences preferences;
     @Override
@@ -58,7 +58,7 @@ public class CommitteeDetails extends AppCompatActivity {
 
         Intent intent=getIntent();
         final Gson gson=new Gson();
-        committee=gson.fromJson(intent.getStringExtra("committee_detail"), CommitteeItem.class);
+        committee=gson.fromJson(intent.getStringExtra("committee_detail"), Committee.class);
 
         favor_btn.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -72,7 +72,7 @@ public class CommitteeDetails extends AppCompatActivity {
                 if(saved==false){
                     favor_btn.setImageResource(R.drawable.star_filled);
                     saved=true;
-                    editor.putString(committee.committee_id, gson.toJson(committee, CommitteeItem.class));
+                    editor.putString(committee.committee_id, gson.toJson(committee, Committee.class));
                     editor.commit();
                 }
                 else {

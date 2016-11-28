@@ -13,7 +13,7 @@ import android.widget.ViewSwitcher;
 
 import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
-import com.xiezhuohan.csci571_hw9.model.bills.BillItem;
+import com.xiezhuohan.csci571_hw9.model.bills.Bill;
 
 
 /**
@@ -31,7 +31,7 @@ public class BillDetail extends AppCompatActivity {
     private TextView bill_version;
     private TextView bill_chamber;
     private ImageSwitcher favor_btn;
-    private BillItem bill;
+    private Bill bill;
     private boolean saved;
     SharedPreferences preferences;
     @Override
@@ -66,7 +66,7 @@ public class BillDetail extends AppCompatActivity {
 
         Intent intent=getIntent();
         final Gson gson=new Gson();
-        bill=gson.fromJson(intent.getStringExtra("bill_detail"), BillItem.class);
+        bill=gson.fromJson(intent.getStringExtra("bill_detail"), Bill.class);
 
         favor_btn.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -80,7 +80,7 @@ public class BillDetail extends AppCompatActivity {
                 if(saved==false){
                     favor_btn.setImageResource(R.drawable.star_filled);
                     saved=true;
-                    editor.putString(bill.bill_id, gson.toJson(bill, BillItem.class));
+                    editor.putString(bill.bill_id, gson.toJson(bill, Bill.class));
                     editor.commit();
                 }
                 else {

@@ -15,8 +15,8 @@ import android.widget.TabHost;
 import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
 import com.xiezhuohan.csci571_hw9.adapter.BillJsonAdapter;
-import com.xiezhuohan.csci571_hw9.model.bills.BillItem;
-import com.xiezhuohan.csci571_hw9.model.bills.BillItemList;
+import com.xiezhuohan.csci571_hw9.model.bills.Bill;
+import com.xiezhuohan.csci571_hw9.model.bills.Bills;
 
 
 import java.io.BufferedReader;
@@ -35,8 +35,8 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
     private ListView lstNewBills;
     private String jsonUrl="http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=activeBill";
     private String jsonUrl2="http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=newBill";
-    private List<BillItem> itemBeanList;
-    private List<BillItem> newBillList;
+    private List<Bill> itemBeanList;
+    private List<Bill> newBillList;
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -71,9 +71,9 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent3 = new Intent("com.xiezhuohan.csci571_hw9.bills");
-                BillItem data=(BillItem) parent.getItemAtPosition(position);
+                Bill data=(Bill) parent.getItemAtPosition(position);
                 Gson gson=new Gson();
-                intent3.putExtra("bill_detail", gson.toJson(data, BillItem.class));
+                intent3.putExtra("bill_detail", gson.toJson(data, Bill.class));
                 startActivity(intent3);
             }};
         lstView.setOnItemClickListener(onItemClickListener);
@@ -82,10 +82,10 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
         return billView;
     }
 
-    class LegisAsyncTask extends AsyncTask<String, Void, List<BillItem>> {
+    class LegisAsyncTask extends AsyncTask<String, Void, List<Bill>> {
         private String key;
         @Override
-        protected List<BillItem> doInBackground(String... params) {
+        protected List<Bill> doInBackground(String... params) {
             key=params[1];
             return getJsonData(params[0],params[1]);
         }
@@ -95,7 +95,7 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
         }
 
         @Override
-        protected void onPostExecute(List<BillItem> result) {
+        protected void onPostExecute(List<Bill> result) {
             super.onPostExecute(result);
             //解析完毕后，进行适配器的数据设置填充
             if(key.equals("1")) {
@@ -113,7 +113,7 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
 
         }
     }
-    public List<BillItem> getJsonData(String jsonUrl, String key) {
+    public List<Bill> getJsonData(String jsonUrl, String key) {
         try {
             //创建url http地址
             URL httpUrl = new URL(jsonUrl);
@@ -138,10 +138,10 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
 
             Gson gson=new Gson();
             if(key.equals("1")) {
-                itemBeanList = gson.fromJson(sb.toString(), BillItemList.class).results;
+                itemBeanList = gson.fromJson(sb.toString(), Bills.class).results;
 
-                Collections.sort(itemBeanList, new Comparator<BillItem>() {
-                    public int compare(BillItem o1, BillItem o2) {
+                Collections.sort(itemBeanList, new Comparator<Bill>() {
+                    public int compare(Bill o1, Bill o2) {
                         if (o1.bill_id == o2.bill_id)
                             return 0;
                         return o1.bill_id.compareTo(o2.bill_id);
@@ -149,9 +149,9 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
                 });
             }
             else{
-                newBillList= gson.fromJson(sb.toString(), BillItemList.class).results;
-                Collections.sort(newBillList, new Comparator<BillItem>() {
-                    public int compare(BillItem o1, BillItem o2) {
+                newBillList= gson.fromJson(sb.toString(), Bills.class).results;
+                Collections.sort(newBillList, new Comparator<Bill>() {
+                    public int compare(Bill o1, Bill o2) {
                         if (o1.bill_id == o2.bill_id)
                             return 0;
                         return o1.bill_id.compareTo(o2.bill_id);

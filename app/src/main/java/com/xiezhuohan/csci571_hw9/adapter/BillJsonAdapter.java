@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.xiezhuohan.csci571_hw9.R;
-import com.xiezhuohan.csci571_hw9.model.bills.BillItem;
+import com.xiezhuohan.csci571_hw9.model.bills.Bill;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +18,11 @@ import java.util.List;
  */
 
 public class BillJsonAdapter extends BaseAdapter {
-    List<BillItem> data = new ArrayList<BillItem>();
-    LayoutInflater inflater;
+    private List<Bill> data = new ArrayList<Bill>();
+    private LayoutInflater inflater;
 
 
-    public BillJsonAdapter(Context context, List<BillItem> data) {
+    public BillJsonAdapter(Context context, List<Bill> data) {
         super();
         this.data = data;
         inflater = LayoutInflater.from(context);
@@ -58,9 +58,6 @@ public class BillJsonAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//		String imageViewUrl = data.get(position).imageViewUrl;
-        //进行绑定--不会出现图片错位现象--因为viewholder是复用的，会显示复用的那个itme的图片
-//		viewHolder.imageView.setTag(imageViewUrl);
 
         viewHolder.bill_id.setText(data.get(position).bill_id);
         if(data.get(position).short_title!=null) {
@@ -70,19 +67,10 @@ public class BillJsonAdapter extends BaseAdapter {
             viewHolder.bill_title.setText(data.get(position).official_title);
         }
         viewHolder.bill_date.setText(data.get(position).introduced_on);
-        //viewHolder.bill_date.setText(data.get(position).sponsor.first_name);
 
-        /**
-         * 这个方式是通过分线程进行图片下载
-         */
-//		new ImageLoaderThread().showImageByThread(viewHolder.imageView, data.get(position).imageViewUrl);
-        /**
-         * 这个方式是进行异步任务方式进行图片加载
-         */
-//		new ImageLoaderAsyncTask().showImageAsyncTask(viewHolder.imageView, data.get(position).imageViewUrl);
         return convertView;
     }
-    class ViewHolder{
+    private class ViewHolder{
         public TextView bill_id,bill_title, bill_date;
     }
 }

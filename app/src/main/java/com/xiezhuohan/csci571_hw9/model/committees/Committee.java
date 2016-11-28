@@ -6,7 +6,7 @@ import java.util.List;
  * Created by xiezhuohan on 11/27/16.
  */
 
-public class CommitteeItem {
+public class Committee {
     public String committee_id;
     public String name;
     public String chamber;

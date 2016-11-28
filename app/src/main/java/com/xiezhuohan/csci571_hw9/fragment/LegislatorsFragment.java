@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
 import com.xiezhuohan.csci571_hw9.Utils.HttpUtils;
-import com.xiezhuohan.csci571_hw9.adapter.JsonAdapter;
+import com.xiezhuohan.csci571_hw9.adapter.LegislatorJsonAdapter;
 import com.xiezhuohan.csci571_hw9.model.legislators.Legislator;
 import com.xiezhuohan.csci571_hw9.model.legislators.Legislators;
 
@@ -31,7 +31,6 @@ import java.util.Map;
 
 import static com.xiezhuohan.csci571_hw9.R.layout.fragment_legislators;
 
-
 public class LegislatorsFragment extends Fragment implements AdapterView.OnItemClickListener, TabHost.TabContentFactory, TabHost.OnTabChangeListener, View.OnClickListener{
     private View legisView;
     private ListView lstView ;
@@ -40,14 +39,14 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
     private int tabIndex;
 
     private String jsonUrl="http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=legis&cham=all";
-    private String jsonUrlHouse="http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=legis&chamber=senate";
-    private List<Legislator> legislatorList;
-    private List<Legislator> itemHouseList;
-    private List<Legislator> itemSenateList;
-    TabHost tabHost;
-    Map<String, Integer> mapIndex;
-    Map<String, Integer> mapIndex2;
-    Map<String, Integer> mapIndex3;
+
+    private List<Legislator> AllLegislators;
+    private List<Legislator> houseLegislators;
+    private List<Legislator> senateLegislators;
+    private TabHost tabHost;
+    private Map<String, Integer> mapIndex = new LinkedHashMap<String, Integer>();
+    private Map<String, Integer> mapIndex2 = new LinkedHashMap<String, Integer>();
+    private Map<String, Integer> mapIndex3 = new LinkedHashMap<String, Integer>();
 
     @Nullable
     @Override
@@ -59,7 +58,7 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
         lstSenate = (ListView)legisView.findViewById(R.id.legisSenateList);
 
         tabIndex=1;
-        new LegisAsyncTask().execute(jsonUrl);
+        new LegislatorAsyncTask().execute(jsonUrl);
         tabHost =(TabHost) legisView.findViewById(R.id.tabhost);
         tabHost.setup();
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("BY STATES").setContent(R.id.tab1));
@@ -73,7 +72,7 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Legislator data = (Legislator)parent.getItemAtPosition(position);
-                Intent intent=new Intent("com.xiezhuohan.csci571_hw9.viewlegis");
+                Intent intent=new Intent("com.xiezhuohan.csci571_hw9.legislators");
                 intent.putExtra("legislator", data);
                 startActivity(intent);
             }
@@ -121,7 +120,7 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
             lstSenate.setSelection(mapIndex3.get(selectedIndex.getText()));
     }
 
-    class LegisAsyncTask extends AsyncTask<String, Void, List<Legislator>> {
+    class LegislatorAsyncTask extends AsyncTask<String, Void, List<Legislator>> {
         @Override
         protected List<Legislator> doInBackground(String... params) {
             return getJsonData(jsonUrl);
@@ -130,18 +129,17 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
         @Override
         protected void onPostExecute(List<Legislator> result) {
 
-            //解析完毕后，进行适配器的数据设置填充
-            JsonAdapter adapter = new JsonAdapter(getActivity(), legislatorList);
+            LegislatorJsonAdapter adapter = new LegislatorJsonAdapter(getActivity(), AllLegislators);
             lstView.setAdapter(adapter);
-            JsonAdapter adapter2 = new JsonAdapter(getActivity(), itemHouseList);
+            LegislatorJsonAdapter adapter2 = new LegislatorJsonAdapter(getActivity(), houseLegislators);
             lstHouse.setAdapter(adapter2);
-            JsonAdapter adapter3 = new JsonAdapter(getActivity(), itemSenateList);
+            LegislatorJsonAdapter adapter3 = new LegislatorJsonAdapter(getActivity(), senateLegislators);
             lstSenate.setAdapter(adapter3);
-            getIndexList(legislatorList);
+            getIndexList(AllLegislators);
             displayIndex("All", mapIndex);
-            getIndexListHouse(itemHouseList);
+            getIndexListHouseAndSenate(houseLegislators, mapIndex2);
             displayIndex("House", mapIndex2);
-            getIndexListSenate(itemSenateList);
+            getIndexListHouseAndSenate(senateLegislators, mapIndex3);
             displayIndex("Senate", mapIndex3);
         }
 
@@ -150,42 +148,40 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
     public List<Legislator> getJsonData(String jsonUrl) {
         String results = HttpUtils.getJSONfromHTTP(jsonUrl);
 
-        legislatorList = new ArrayList<Legislator>();
-        itemHouseList = new ArrayList<Legislator>();
-        itemSenateList = new ArrayList<Legislator>();
-
+        AllLegislators = new ArrayList<Legislator>();
+        houseLegislators = new ArrayList<Legislator>();
+        senateLegislators = new ArrayList<Legislator>();
         Gson gson=new Gson();
-        legislatorList = gson.fromJson(results, Legislators.class).results;
+        AllLegislators = gson.fromJson(results, Legislators.class).results;
 
-
-            for (int i = 0; i < legislatorList.size(); i++) {
-                Legislator legislator = legislatorList.get(i);
+            for (int i = 0; i < AllLegislators.size(); i++) {
+                Legislator legislator = AllLegislators.get(i);
 
                 legislator.name = legislator.last_name + ", " + legislator.first_name;
 
                 if(legislator.chamber.equals("house")){
-                    itemHouseList.add(legislator);
+                    houseLegislators.add(legislator);
                 }
                 if(legislator.chamber.equals("senate")){
-                    itemSenateList.add(legislator);
+                    senateLegislators.add(legislator);
                 }
             }
 
-            Collections.sort(legislatorList, new Comparator<Legislator>(){
+            Collections.sort(AllLegislators, new Comparator<Legislator>(){
                 public int compare(Legislator o1, Legislator o2){
                     if(o1.state_name.equals(o2.state_name))
                         return 0;
                     return o1.state_name.compareTo(o2.state_name);
                 }
             });
-            Collections.sort(itemHouseList, new Comparator<Legislator>(){
+            Collections.sort(houseLegislators, new Comparator<Legislator>(){
                 public int compare(Legislator o1, Legislator o2){
                     if(o1.name.equals(o2.name))
                         return 0;
                     return o1.name.compareTo(o2.name);
                 }
             });
-            Collections.sort(itemSenateList, new Comparator<Legislator>(){
+            Collections.sort(senateLegislators, new Comparator<Legislator>(){
                 public int compare(Legislator o1, Legislator o2){
                     if(o1.name.equals(o2.name))
                         return 0;
@@ -193,11 +189,10 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
                 }
             });
 
-        return legislatorList;
+        return AllLegislators;
     }
 
     private void getIndexList(List<Legislator> list) {
-        mapIndex = new LinkedHashMap<String, Integer>();
         for (int i = 0; i < list.size(); i++) {
             String stateName = list.get(i).state;
             String index = stateName.substring(0, 1);
@@ -206,24 +201,13 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
                 mapIndex.put(index, i);
         }
     }
-    private void getIndexListHouse(List<Legislator> list) {
-        mapIndex2 = new LinkedHashMap<String, Integer>();
+    private void getIndexListHouseAndSenate(List<Legislator> list, Map<String, Integer> map) {
         for (int i = 0; i < list.size(); i++) {
-            String stateName = list.get(i).name;
-            String index = stateName.substring(0, 1);
+            String name = list.get(i).name;
+            String index = name.substring(0, 1);
 
-            if (mapIndex2.get(index) == null)
-                mapIndex2.put(index, i);
-        }
-    }
-    private void getIndexListSenate(List<Legislator> list) {
-        mapIndex3 = new LinkedHashMap<String, Integer>();
-        for (int i = 0; i < list.size(); i++) {
-            String stateName = list.get(i).name;
-            String index = stateName.substring(0, 1);
-
-            if (mapIndex3.get(index) == null)
-                mapIndex3.put(index, i);
+            if (map.get(index) == null)
+                map.put(index, i);
         }
     }
 

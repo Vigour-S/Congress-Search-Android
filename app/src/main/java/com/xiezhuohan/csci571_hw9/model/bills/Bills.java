@@ -5,6 +5,6 @@ import java.util.List;
 /**
  * Created by xiezhuohan on 11/27/16.
  */
-public class BillItemList{
-    public List<BillItem> results;
+public class Bills {
+    public List<Bill> results;
 }

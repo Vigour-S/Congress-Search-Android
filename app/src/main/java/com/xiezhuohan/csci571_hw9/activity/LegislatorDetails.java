@@ -1,9 +1,7 @@
 package com.xiezhuohan.csci571_hw9.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +26,7 @@ import java.util.Date;
  * Created by xiezhuohan on 11/26/16.
  */
 
-public class LegisDetails extends AppCompatActivity {
+public class LegislatorDetails extends AppCompatActivity {
 
     private Legislator legislator;
     private ImageView photo;
@@ -121,7 +119,7 @@ public class LegisDetails extends AppCompatActivity {
         favoriteBtn.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
-                return new ImageView(LegisDetails.this);
+                return new ImageView(LegislatorDetails.this);
             }
         });
 

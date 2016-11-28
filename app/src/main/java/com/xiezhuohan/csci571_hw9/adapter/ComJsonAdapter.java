@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.xiezhuohan.csci571_hw9.R;
-import com.xiezhuohan.csci571_hw9.model.committees.CommitteeItem;
+import com.xiezhuohan.csci571_hw9.model.committees.Committee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.List;
  * Created by xiezhuohan on 11/27/16.
  */
 public class ComJsonAdapter extends BaseAdapter {
-    List<CommitteeItem> data = new ArrayList<CommitteeItem>();
-    LayoutInflater inflater;
+    private List<Committee> data = new ArrayList<Committee>();
+    private LayoutInflater inflater;
 
-    public ComJsonAdapter(Context context, List<CommitteeItem> data) {
+    public ComJsonAdapter(Context context, List<Committee> data) {
         super();
         this.data = data;
         inflater = LayoutInflater.from(context);
@@ -55,26 +55,15 @@ public class ComJsonAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//		String imageViewUrl = data.get(position).imageViewUrl;
-        //进行绑定--不会出现图片错位现象--因为viewholder是复用的，会显示复用的那个itme的图片
-//		viewHolder.imageView.setTag(imageViewUrl);
 
         viewHolder.committee_id.setText(data.get(position).committee_id);
         viewHolder.name.setText(data.get(position).name);
         viewHolder.chamber.setText(data.get(position).chamber);
-        //viewHolder.bill_date.setText(data.get(position).sponsor.first_name);
 
-        /**
-         * 这个方式是通过分线程进行图片下载
-         */
-//		new ImageLoaderThread().showImageByThread(viewHolder.imageView, data.get(position).imageViewUrl);
-        /**
-         * 这个方式是进行异步任务方式进行图片加载
-         */
-//		new ImageLoaderAsyncTask().showImageAsyncTask(viewHolder.imageView, data.get(position).imageViewUrl);
         return convertView;
     }
-    class ViewHolder{
+
+    private class ViewHolder{
         public TextView committee_id,name, chamber;
     }
 }

@@ -19,12 +19,12 @@ import java.util.List;
  * Created by xiezhuohan on 11/26/16.
  */
 
-public class JsonAdapter extends BaseAdapter {
-    List<Legislator> data = new ArrayList<Legislator>();
-    LayoutInflater inflater;
+public class LegislatorJsonAdapter extends BaseAdapter {
+    private List<Legislator> data = new ArrayList<Legislator>();
+    private LayoutInflater inflater;
 
 
-    public JsonAdapter(Context context, List<Legislator> data) {
+    public LegislatorJsonAdapter(Context context, List<Legislator> data) {
         super();
         this.data = data;
         inflater = LayoutInflater.from(context);
@@ -60,9 +60,6 @@ public class JsonAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//		String imageViewUrl = data.get(position).imageViewUrl;
-        //进行绑定--不会出现图片错位现象--因为viewholder是复用的，会显示复用的那个itme的图片
-//		viewHolder.imageView.setTag(imageViewUrl);
 
         viewHolder.name.setText(data.get(position).name);
         viewHolder.content.setText("("+data.get(position).party+") "+data.get(position).state_name+" - District "+data.get(position).district);
@@ -70,7 +67,7 @@ public class JsonAdapter extends BaseAdapter {
 
         return convertView;
     }
-    class ViewHolder{
+    private class ViewHolder{
         public TextView name,content;
         public ImageView imageView;
     }

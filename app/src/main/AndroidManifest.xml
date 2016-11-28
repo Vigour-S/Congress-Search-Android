@@ -17,10 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LegisDetails"
+        <activity android:name=".activity.LegislatorDetails"
                   android:theme="@style/MyActionBar">
             <intent-filter>
-                <action android:name="com.xiezhuohan.csci571_hw9.viewlegis"/>
+                <action android:name="com.xiezhuohan.csci571_hw9.legislators"/>
                 <category android:name="android.intent.category.DEFAULT"/>
 
             </intent-filter>
