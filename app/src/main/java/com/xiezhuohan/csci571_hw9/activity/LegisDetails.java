@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
@@ -19,15 +18,9 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import com.xiezhuohan.csci571_hw9.R;
-import com.xiezhuohan.csci571_hw9.model.legislators.DetailBean;
+import com.xiezhuohan.csci571_hw9.model.legislators.Legislator;
 import org.apache.commons.lang3.time.FastDateFormat;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Date;
 
 
@@ -36,8 +29,8 @@ import java.util.Date;
  */
 
 public class LegisDetails extends AppCompatActivity {
-    private String jsonUrl;
-    private DetailBean personInfo;
+
+    private Legislator legislator;
     private ImageView photo;
     private TextView name;
     private TextView party;
@@ -86,9 +79,45 @@ public class LegisDetails extends AppCompatActivity {
 
 
         Intent intent=getIntent();
-        String bioguide_id=intent.getStringExtra("bioguide_id");
-        jsonUrl="http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=legisDetail&bioguideId="+bioguide_id;
-        new LegisAsyncTask(this).execute(jsonUrl);
+        legislator = intent.getParcelableExtra("legislator");
+
+
+        Picasso.with(this).load("https://theunitedstates.io/images/congress/original/"
+                +legislator.bioguide_id+".jpg").into(photo);
+        name.setText(legislator.name);
+        email.setText(legislator.oc_email);
+        chamber.setText(legislator.chamber);
+        contact.setText(legislator.phone);
+        office.setText(legislator.office);
+        state.setText(legislator.state);
+
+        if(legislator.party.equals("R")){
+            party_img.setImageResource(R.drawable.r);
+            party.setText("Republican");
+        }
+        else if(legislator.party.equals("D")){
+            party_img.setImageResource(R.drawable.d);
+            party.setText("Democrat");
+        }
+
+        FastDateFormat parser=FastDateFormat.getInstance("yyyy-MM-dd");
+        try {
+            Date startDay=parser.parse(legislator.term_start);
+            FastDateFormat printer=FastDateFormat.getDateInstance(FastDateFormat.MEDIUM);
+            legislator.startTerm=printer.format(startDay);
+            Date endDay=parser.parse(legislator.term_end);
+            legislator.endTerm=printer.format(endDay);
+            Date now=new Date();
+            legislator.termProgress=(double) (now.getTime()-startDay.getTime())/(endDay.getTime()-startDay.getTime());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        start_term.setText(legislator.startTerm);
+        end_term.setText(legislator.endTerm);
+        termBar.setProgress((int)(legislator.termProgress*100));
+        String strProgress = String.valueOf((int)(legislator.termProgress*100)) + "%";
+        bar_percentage.setText(strProgress);
+
         favoriteBtn.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
             public View makeView() {
@@ -96,7 +125,14 @@ public class LegisDetails extends AppCompatActivity {
             }
         });
 
-
+        if(preferences.getString(legislator.bioguide_id, "0").equals("0")){
+            saved=false;
+            favoriteBtn.setImageResource(R.drawable.star_empty);
+        }
+        else {
+            saved=true;
+            favoriteBtn.setImageResource(R.drawable.star_filled);
+        }
 
         favoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +142,7 @@ public class LegisDetails extends AppCompatActivity {
                     saved=true;
                     SharedPreferences.Editor editor=preferences.edit();
                     Gson gson=new Gson();
-                    editor.putString(personInfo.bioId,gson.toJson(personInfo, DetailBean.class));
+                    editor.putString(legislator.bioguide_id,gson.toJson(legislator, Legislator.class));
                     editor.commit();
                 }
                 else{
@@ -114,128 +150,11 @@ public class LegisDetails extends AppCompatActivity {
                     saved=false;
                     SharedPreferences.Editor editor=preferences.edit();
                     Gson gson=new Gson();
-                    editor.remove(personInfo.bioId);
+                    editor.remove(legislator.bioguide_id);
                     editor.commit();
                 }
             }
         });
-    }
 
-    class LegisAsyncTask extends AsyncTask<String, Void, DetailBean> {
-        private Context mContext;
-        public LegisAsyncTask(Context context){
-            mContext=context;
-        }
-        @Override
-        protected DetailBean doInBackground(String... params) {
-            return getJsonData(jsonUrl);
-        }
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(DetailBean result) {
-            super.onPostExecute(result);
-            //解析完毕后，进行适配器的数据设置填充
-            Picasso.with(mContext).load("https://theunitedstates.io/images/congress/original/"+personInfo.bioId+".jpg").into(photo);
-            name.setText(personInfo.name);
-            email.setText(personInfo.email);
-            chamber.setText(personInfo.chamber);
-            contact.setText(personInfo.contact);
-            office.setText(personInfo.office);
-            state.setText(personInfo.state);
-
-            if(personInfo.party.equals("R")){
-                party_img.setImageResource(R.drawable.r);
-                party.setText("Republican");
-            }
-            else if(personInfo.party.equals("D")){
-                party_img.setImageResource(R.drawable.d);
-                party.setText("Democrat");
-            }
-
-            start_term.setText(personInfo.startTerm);
-            end_term.setText(personInfo.endTerm);
-            termBar.setProgress((int)(personInfo.termProgress*100));
-            String strProgress = String.valueOf((int)(personInfo.termProgress*100)) + "%";
-            bar_percentage.setText(strProgress);
-            if(preferences.getString(personInfo.bioId, "0").equals("0")){
-                saved=false;
-                favoriteBtn.setImageResource(R.drawable.star_empty);
-            }
-            else {
-                saved=true;
-                favoriteBtn.setImageResource(R.drawable.star_filled);
-            }
-        }
-    }
-
-    public DetailBean getJsonData(String jsonUrl) {
-        try {
-            //创建url http地址
-            URL httpUrl = new URL(jsonUrl);
-            //打开http 链接
-            HttpURLConnection connection = (HttpURLConnection) httpUrl
-                    .openConnection();
-            //设置参数  请求为get请求
-            connection.setReadTimeout(5000);
-            connection.setRequestMethod("GET");
-
-            //connection.getInputStream()得到字节输入流，InputStreamReader从字节到字符的桥梁，外加包装字符流
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
-            //创建字符串容器
-            StringBuffer sb = new StringBuffer();
-            String str = "";
-            //行读取
-            while ((str = bufferedReader.readLine()) != null) {
-                // 当读取完毕，就添加到容器中
-                sb.append(str);
-            }
-            //测试是否得到json字符串
-            Log.e("TAG", ""+sb.toString());
-            //创建本地对象的集合
-            personInfo=new DetailBean();
-            // 整体是一个jsonObject
-            JSONObject jsonObject = new JSONObject(sb.toString());
-            // 键是jsonArray数组
-            JSONArray jsonArray = jsonObject.getJSONArray("results");
-
-            //获取jsonArray中的每个对象
-            JSONObject jsonObject2 = jsonArray.getJSONObject(0);
-            //创建本地的newsBean对象
-//                DetailBean detailBean = new DetailBean();
-            //为该对象进行属性值的设置操作
-//				newsBean.imageViewUrl = jsonObject2
-//						.getString("picSmall");
-            personInfo.name = jsonObject2.getString("last_name")+", "+jsonObject2.getString("first_name");
-            personInfo.state = jsonObject2.getString("state");
-            personInfo.email=jsonObject2.getString("oc_email");
-            personInfo.bioId=jsonObject2.getString("bioguide_id");
-            personInfo.party=jsonObject2.getString("party");
-            personInfo.chamber=jsonObject2.getString("chamber");
-            personInfo.contact=jsonObject2.getString("phone");
-            personInfo.startTerm=jsonObject2.getString("term_start");
-            personInfo.office = jsonObject2.getString("office");
-
-            FastDateFormat parser=FastDateFormat.getInstance("yyyy-MM-dd");
-            Date startDay=parser.parse(personInfo.startTerm);
-            FastDateFormat printer=FastDateFormat.getDateInstance(FastDateFormat.MEDIUM);
-            personInfo.startTerm=printer.format(startDay);
-
-            personInfo.endTerm=jsonObject2.getString("term_end");
-            Date endDay=parser.parse(personInfo.endTerm);
-            personInfo.endTerm=printer.format(endDay);
-            Date now=new Date();
-            personInfo.termProgress=(double) (now.getTime()-startDay.getTime())/(endDay.getTime()-startDay.getTime());
-            //添加对象，组建集合
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return personInfo;
     }
 }

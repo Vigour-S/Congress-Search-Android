@@ -74,7 +74,7 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Legislator data = (Legislator)parent.getItemAtPosition(position);
                 Intent intent=new Intent("com.xiezhuohan.csci571_hw9.viewlegis");
-                intent.putExtra("bioguide_id", data.bioguide_id.toString());
+                intent.putExtra("legislator", data);
                 startActivity(intent);
             }
         };
