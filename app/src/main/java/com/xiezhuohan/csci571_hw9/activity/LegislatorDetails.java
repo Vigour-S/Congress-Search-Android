@@ -2,8 +2,6 @@ package com.xiezhuohan.csci571_hw9.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,7 +47,7 @@ public class LegislatorDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.legis_details);
+        setContentView(R.layout.legislator_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
@@ -76,9 +74,9 @@ public class LegislatorDetails extends AppCompatActivity {
         office = (TextView) findViewById(R.id.tv_office_data);
         state = (TextView) findViewById(R.id.tv_state_data);
         favoriteBtn = (ImageSwitcher) findViewById(R.id.favorite_btn);
-        facebookBtn = (ImageView)findViewById(R.id.facebook_icon);
-        twitterBtn = (ImageView)findViewById(R.id.twitter_icon);
-        websiteBtn = (ImageView)findViewById(R.id.website_icon);
+        facebookBtn = (ImageView) findViewById(R.id.facebook_icon);
+        twitterBtn = (ImageView) findViewById(R.id.twitter_icon);
+        websiteBtn = (ImageView) findViewById(R.id.website_icon);
 
         Intent intent = getIntent();
         legislator = intent.getParcelableExtra("legislator");

@@ -49,7 +49,7 @@ public class LegislatorJsonAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.listitem_legis, null);
+            convertView = inflater.inflate(R.layout.legislator_layout, null);
             viewHolder.name = (TextView) convertView
                     .findViewById(R.id.tv_name);
             viewHolder.content = (TextView) convertView

@@ -23,7 +23,7 @@ import java.util.*;
 import static com.xiezhuohan.csci571_hw9.R.layout.fragment_legislators;
 
 public class LegislatorsFragment extends Fragment implements AdapterView.OnItemClickListener, TabHost.TabContentFactory, TabHost.OnTabChangeListener, View.OnClickListener {
-    private View legisView;
+    private View legislatorView;
     private ListView lstView;
     private ListView lstHouse;
     private ListView lstSenate;
@@ -41,14 +41,14 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        legisView = inflater.inflate(fragment_legislators, container, false);
-        lstView = (ListView) legisView.findViewById(R.id.legisList);
-        lstHouse = (ListView) legisView.findViewById(R.id.houseLegisList);
-        lstSenate = (ListView) legisView.findViewById(R.id.legisSenateList);
+        legislatorView = inflater.inflate(fragment_legislators, container, false);
+        lstView = (ListView) legislatorView.findViewById(R.id.legisList);
+        lstHouse = (ListView) legislatorView.findViewById(R.id.houseLegisList);
+        lstSenate = (ListView) legislatorView.findViewById(R.id.legisSenateList);
 
         tabIndex = 1;
         new LegislatorAsyncTask().execute(HttpUtils.getAllLegislators);
-        tabHost = (TabHost) legisView.findViewById(R.id.tabhost);
+        tabHost = (TabHost) legislatorView.findViewById(R.id.tabhost);
         tabHost.setup();
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("BY STATES").setContent(R.id.tab1));
         tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("HOUSE").setContent(R.id.tab2));
@@ -71,7 +71,7 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
         lstHouse.setOnItemClickListener(onItemClickListener);
         lstSenate.setOnItemClickListener(onItemClickListener);
 
-        return legisView;
+        return legislatorView;
     }
 
     @Override
@@ -141,6 +141,7 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
         Gson gson = new Gson();
         AllLegislators = gson.fromJson(results, Legislators.class).results;
 
+
         for (int i = 0; i < AllLegislators.size(); i++) {
             Legislator legislator = AllLegislators.get(i);
 
@@ -182,11 +183,11 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
     private void displayIndex(String sideId, Map<String, Integer> mapIndex) {
         LinearLayout indexLayout;
         if (sideId.equals("All")) {
-            indexLayout = (LinearLayout) legisView.findViewById(R.id.side_index);
+            indexLayout = (LinearLayout) legislatorView.findViewById(R.id.side_index);
         } else if (sideId.equals("House")) {
-            indexLayout = (LinearLayout) legisView.findViewById(R.id.side_index2);
+            indexLayout = (LinearLayout) legislatorView.findViewById(R.id.side_index2);
         } else {
-            indexLayout = (LinearLayout) legisView.findViewById(R.id.side_index3);
+            indexLayout = (LinearLayout) legislatorView.findViewById(R.id.side_index3);
         }
 
         TextView textView;

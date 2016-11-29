@@ -47,7 +47,7 @@ public class BillJsonAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.listitem_bills, null);
+            convertView = inflater.inflate(R.layout.bill_layout, null);
             viewHolder.bill_id = (TextView) convertView
                     .findViewById(R.id.tv_billid);
             viewHolder.bill_title = (TextView) convertView

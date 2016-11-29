@@ -25,8 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:id="@+id/favorite_btn"
-                android:paddingStart="10dp"
-                android:layout_marginEnd="-100dp"/>
+                android:paddingStart="10dp"/>
 
         <ImageView
                 android:layout_width="40dp"
@@ -35,8 +34,7 @@
                 android:id="@+id/facebook_icon"
                 android:layout_gravity="right"
                 android:layout_weight="0.25"
-                android:paddingTop="8dp"
-                android:layout_marginEnd="-110dp"/>
+                android:paddingTop="8dp"/>
 
         <ImageView
                 android:layout_width="40dp"
@@ -45,8 +43,7 @@
                 android:id="@+id/twitter_icon"
                 android:layout_gravity="right"
                 android:layout_weight="0.25"
-                android:paddingTop="8dp"
-                android:layout_marginEnd="-120dp"/>
+                android:paddingTop="8dp"/>
 
         <ImageView
                 android:layout_width="40dp"
@@ -55,8 +52,7 @@
                 android:id="@+id/website_icon"
                 android:layout_gravity="right"
                 android:layout_weight="0.25"
-                android:paddingTop="8dp"
-                android:layout_marginEnd="-60dp"/>
+                android:paddingTop="8dp"/>
     </LinearLayout>
 
     <ImageView

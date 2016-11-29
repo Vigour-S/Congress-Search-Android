@@ -44,7 +44,7 @@ public class ComJsonAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.listitem_committees, null);
+            convertView = inflater.inflate(R.layout.committee_layout, null);
             viewHolder.committee_id = (TextView) convertView
                     .findViewById(R.id.tv_com_id);
             viewHolder.name = (TextView) convertView
