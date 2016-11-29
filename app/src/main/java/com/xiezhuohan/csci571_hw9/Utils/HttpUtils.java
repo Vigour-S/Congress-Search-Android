@@ -11,10 +11,10 @@ import java.net.URL;
 
 public class HttpUtils {
 
-    public static String getAllLegislators = "http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=legis&cham=all";
-    public static String getAllActiveBills = "http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=activeBill";
-    public static String getAllNewBills = "http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=newBill";
-    public static String getAllCommittees = "http://sample-env.5p7uahjtiv.us-west-2.elasticbeanstalk.com/csci571hw8/LoadPHP.php?key=allCommittee";
+    public static String getAllLegislators = "http://csci571.zesvu2ttmu.us-west-1.elasticbeanstalk.com/index.php?legislators=true";
+    public static String getAllActiveBills = "http://csci571.zesvu2ttmu.us-west-1.elasticbeanstalk.com/index.php?allActiveBills=true";
+    public static String getAllNewBills = "http://csci571.zesvu2ttmu.us-west-1.elasticbeanstalk.com/index.php?allNewBills=true";
+    public static String getAllCommittees = "http://csci571.zesvu2ttmu.us-west-1.elasticbeanstalk.com/index.php?allCommittees=true";
 
     public static String getJSONFromHTTP(String url) {
         StringBuffer sb = new StringBuffer();

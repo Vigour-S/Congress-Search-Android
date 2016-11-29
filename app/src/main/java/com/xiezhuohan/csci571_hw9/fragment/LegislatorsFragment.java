@@ -124,9 +124,9 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
             lstSenate.setAdapter(adapter3);
             SidebarUtils.getIndexList(AllLegislators, mapIndex, "state");
             displayIndex("All", mapIndex);
-            SidebarUtils.getIndexList(AllLegislators, mapIndex2, "name");
+            SidebarUtils.getIndexList(houseLegislators, mapIndex2, "name");
             displayIndex("House", mapIndex2);
-            SidebarUtils.getIndexList(AllLegislators, mapIndex3, "name");
+            SidebarUtils.getIndexList(senateLegislators, mapIndex3, "name");
             displayIndex("Senate", mapIndex3);
         }
 
@@ -191,6 +191,7 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
 
         TextView textView;
         List<String> indexList = new ArrayList<String>(mapIndex.keySet());
+
         for (String index : indexList) {
             textView = (TextView) getActivity().getLayoutInflater().inflate(
                     R.layout.side_index_item, null);
