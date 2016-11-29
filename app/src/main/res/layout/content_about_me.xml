@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -13,4 +14,30 @@
         tools:showIn="@layout/activity_about_me"
         tools:context="com.xiezhuohan.csci571_hw9.activity.AboutMeActivity">
 
-</RelativeLayout>
+
+    <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/profile"
+            android:layout_gravity="center"
+            android:layout_weight="0.25"
+            android:paddingTop="10dp"/>
+
+    <TextView
+            android:text="Zhuohan Xie"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="30sp"
+            android:layout_weight="1"/>
+    <TextView
+            android:text="9594641287"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlack"
+            android:textSize="30sp"
+            android:layout_weight="1"/>
+
+</LinearLayout>

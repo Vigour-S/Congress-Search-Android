@@ -37,13 +37,13 @@
                             android:textSize="@dimen/detail_header"
                             android:layout_width="wrap_content"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/bill_id_data"
                             android:textSize="@dimen/detail_data"
                             android:textColor="@color/dark_gray"
@@ -63,13 +63,13 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textSize="@dimen/detail_header"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/bill_title_data"
                             android:textSize="@dimen/detail_data"
                             android:layout_width="100dp"
@@ -89,13 +89,13 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textSize="@dimen/detail_header"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/bill_type_data"
                             android:textSize="@dimen/detail_data"
                             android:textColor="@color/dark_gray"
@@ -113,13 +113,13 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textSize="@dimen/detail_header"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/bill_sponsor_data"
                             android:textSize="@dimen/detail_data"
                             android:textColor="@color/dark_gray"
@@ -136,13 +136,13 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textSize="@dimen/detail_header"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/bill_chamber_data"
                             android:textSize="@dimen/detail_data"
                             android:textColor="@color/dark_gray"
@@ -159,13 +159,13 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textSize="@dimen/detail_header"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/biil_status_data"
                             android:textSize="@dimen/detail_data"
                             android:textColor="@color/dark_gray"
@@ -182,13 +182,13 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textSize="@dimen/detail_header"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/biil_introduce_data"
                             android:textSize="@dimen/detail_data"
                             android:textColor="@color/dark_gray"
@@ -206,13 +206,13 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textSize="@dimen/detail_header"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/bill_congress_data"
                             android:textSize="@dimen/detail_data"
                             android:layout_width="100dp"
@@ -230,13 +230,13 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textSize="@dimen/detail_header"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/biil_version_data"
                             android:textSize="@dimen/detail_data"
                             android:textColor="@color/dark_gray"
@@ -253,13 +253,13 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                             android:textSize="@dimen/detail_header"
                             android:paddingStart="@dimen/table_cell_padding"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/table_row_margin"/>
 
                     <TextView
                             android:text="@string/nothing"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:layout_gravity="right"
                             android:id="@+id/biil_url_data"
                             android:textSize="@dimen/detail_data"
                             android:layout_width="100dp"

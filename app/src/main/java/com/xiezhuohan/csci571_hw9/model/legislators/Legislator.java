@@ -26,6 +26,9 @@ public class Legislator implements Parcelable{
     public double termProgress;
     public String startTerm;
     public String endTerm;
+    public String facebook_id;
+    public String twitter_id;
+    public String website;
 
     public Legislator(Parcel in) {
         bioguide_id = in.readString();
@@ -44,6 +47,9 @@ public class Legislator implements Parcelable{
         oc_email = in.readString();
         phone = in.readString();
         office = in.readString();
+        facebook_id = in.readString();
+        twitter_id = in.readString();
+        website = in.readString();
     }
 
     @Override
@@ -69,6 +75,9 @@ public class Legislator implements Parcelable{
         parcel.writeString(oc_email);
         parcel.writeString(phone);
         parcel.writeString(office);
+        parcel.writeString(facebook_id);
+        parcel.writeString(twitter_id);
+        parcel.writeString(website);
     }
 
     public static final Parcelable.Creator<Legislator> CREATOR

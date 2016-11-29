@@ -16,6 +16,7 @@ public class AboutMeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about_me);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("About Me");
     }
 
 }
