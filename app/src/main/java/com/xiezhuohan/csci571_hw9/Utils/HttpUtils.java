@@ -11,7 +11,8 @@ import java.net.URL;
 
 public class HttpUtils {
 
-    public static String getAllLegislators = "http://csci571.zesvu2ttmu.us-west-1.elasticbeanstalk.com/index.php?legislators=true";
+    String hostname = "http://104.198.0.197:8080";
+    public static String getAllLegislators = "http://104.198.0.197:8080/legislators?per_page=all";
     public static String getAllActiveBills = "http://csci571.zesvu2ttmu.us-west-1.elasticbeanstalk.com/index.php?allActiveBills=true";
     public static String getAllNewBills = "http://csci571.zesvu2ttmu.us-west-1.elasticbeanstalk.com/index.php?allNewBills=true";
     public static String getAllCommittees = "http://csci571.zesvu2ttmu.us-west-1.elasticbeanstalk.com/index.php?allCommittees=true";

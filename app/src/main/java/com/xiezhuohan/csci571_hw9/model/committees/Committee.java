@@ -11,7 +11,6 @@ public class Committee {
     public String name;
     public String chamber;
     public String parent_committee_id;
-    public String subcommittee;
     public String phone;
     public String office;
 }

@@ -14,12 +14,14 @@ import android.widget.TabHost;
 import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
 import com.xiezhuohan.csci571_hw9.Utils.HttpUtils;
-import com.xiezhuohan.csci571_hw9.adapter.BillJsonAdapter;
+import com.xiezhuohan.csci571_hw9.adapter.BillListAdapter;
 import com.xiezhuohan.csci571_hw9.model.bills.Bill;
 import com.xiezhuohan.csci571_hw9.model.bills.Bills;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 
@@ -95,10 +97,10 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
         protected void onPostExecute(List<Bill> result) {
             super.onPostExecute(result);
             if (key.equals("1")) {
-                BillJsonAdapter adapter = new BillJsonAdapter(getActivity(), itemBeanList);
+                BillListAdapter adapter = new BillListAdapter(getActivity(), itemBeanList);
                 lstView.setAdapter(adapter);
             } else {
-                BillJsonAdapter adapter1 = new BillJsonAdapter(getActivity(), newBillList);
+                BillListAdapter adapter1 = new BillListAdapter(getActivity(), newBillList);
                 lstNewBills.setAdapter(adapter1);
             }
         }
@@ -119,18 +121,35 @@ public class BillsFragment extends Fragment implements AdapterView.OnItemClickLi
 
                 Collections.sort(itemBeanList, new Comparator<Bill>() {
                     public int compare(Bill o1, Bill o2) {
-                        if (o1.bill_id.equals(o2.bill_id))
-                            return 0;
-                        return o1.bill_id.compareTo(o2.bill_id);
+                        FastDateFormat parser = FastDateFormat.getInstance("yyyy-MM-dd");
+                        try {
+                            Date o1Date = parser.parse(o1.introduced_on);
+                            Date o2Date = parser.parse(o2.introduced_on);
+
+                            if (o1Date.equals(o2Date))
+                                return 0;
+                            return -o1Date.compareTo(o2Date);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return 0;
                     }
                 });
             } else {
                 newBillList = gson.fromJson(results, Bills.class).results;
                 Collections.sort(newBillList, new Comparator<Bill>() {
-                    public int compare(Bill o1, Bill o2) {
-                        if (o1.bill_id.equals(o2.bill_id))
-                            return 0;
-                        return o1.bill_id.compareTo(o2.bill_id);
+                    public int compare(Bill o1, Bill o2) {FastDateFormat parser = FastDateFormat.getInstance("yyyy-MM-dd");
+                        try {
+                            Date o1Date = parser.parse(o1.introduced_on);
+                            Date o2Date = parser.parse(o2.introduced_on);
+
+                            if (o1Date.equals(o2Date))
+                                return 0;
+                            return -o1Date.compareTo(o2Date);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        return 0;
                     }
                 });
             }

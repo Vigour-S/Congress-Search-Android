@@ -6,10 +6,8 @@
             android:layout_width="200dip"
             android:layout_height="300dip"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:id="@+id/tabhost">
 
@@ -40,16 +38,12 @@
                             android:layout_weight="1.0"
                             android:id="@+id/favorlegisList" />
                     <LinearLayout
-                            android:id="@+id/side_index4"
+                            android:id="@+id/fav_side_index"
                             android:layout_width="50dp"
                             android:layout_height="fill_parent"
                             android:background="#c3c3c3"
                             android:gravity="center_horizontal"
                             android:orientation="vertical"
-                            android:layout_alignParentTop="true"
-                            android:layout_toRightOf="@+id/favorlegisList"
-                            android:layout_toEndOf="@+id/favorlegisList"
-                            android:layout_marginLeft="0dp"
                             android:layout_marginStart="0dp">
                     </LinearLayout>
                 </LinearLayout>

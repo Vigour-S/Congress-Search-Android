@@ -30,7 +30,7 @@ public class Legislator implements Parcelable{
     public String twitter_id;
     public String website;
 
-    public Legislator(Parcel in) {
+    private Legislator(Parcel in) {
         bioguide_id = in.readString();
         first_name = in.readString();
         last_name = in.readString();

@@ -19,26 +19,29 @@ import com.xiezhuohan.csci571_hw9.model.bills.Bill;
  * Created by xiezhuohan on 11/27/16.
  */
 public class BillDetail extends AppCompatActivity {
-    private TextView bill_id;
-    private TextView bill_title;
-    private TextView bill_type;
-    private TextView bill_sponsor;
-    private TextView bill_introduce;
-    private TextView bill_status;
-    private TextView bill_congress;
-    private TextView bill_url;
-    private TextView bill_version;
-    private TextView bill_chamber;
+
     private ImageSwitcher favor_btn;
     private Bill bill;
     private boolean saved;
-    SharedPreferences preferences;
+    private SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        TextView bill_id;
+        TextView bill_title;
+        TextView bill_type;
+        TextView bill_sponsor;
+        TextView bill_introduce;
+        TextView bill_status;
+        TextView bill_congress;
+        TextView bill_url;
+        TextView bill_version;
+        TextView bill_chamber;
+
         setContentView(R.layout.bill_details);
-        preferences = getSharedPreferences("favor_bills", MODE_APPEND);
+        preferences = getSharedPreferences("favorBills", MODE_APPEND);
         final SharedPreferences.Editor editor = preferences.edit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar_bill);
         setSupportActionBar(toolbar);

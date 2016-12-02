@@ -10,7 +10,6 @@ public class Bill {
     public String introduced_on;
     public String short_title;
     public String chamber;
-    public String long_title;
     public Sponsor sponsor = new Sponsor();
     public Version last_version = new Version();
     public Urls urls = new Urls();

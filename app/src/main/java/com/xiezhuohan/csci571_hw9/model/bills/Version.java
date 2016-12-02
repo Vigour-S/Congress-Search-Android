@@ -5,6 +5,6 @@ package com.xiezhuohan.csci571_hw9.model.bills;
  */
 
 public class Version{
-    public BillUrls urls=new BillUrls();
+    public BillUrls urls = new BillUrls();
     public String version_name;
 }

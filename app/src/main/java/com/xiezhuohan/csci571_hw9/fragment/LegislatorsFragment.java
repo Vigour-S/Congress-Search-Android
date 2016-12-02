@@ -14,7 +14,7 @@ import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
 import com.xiezhuohan.csci571_hw9.Utils.HttpUtils;
 import com.xiezhuohan.csci571_hw9.Utils.SidebarUtils;
-import com.xiezhuohan.csci571_hw9.adapter.LegislatorJsonAdapter;
+import com.xiezhuohan.csci571_hw9.adapter.LegislatorListAdapter;
 import com.xiezhuohan.csci571_hw9.model.legislators.Legislator;
 import com.xiezhuohan.csci571_hw9.model.legislators.Legislators;
 
@@ -46,7 +46,7 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
         lstHouse = (ListView) legislatorView.findViewById(R.id.houseLegisList);
         lstSenate = (ListView) legislatorView.findViewById(R.id.legisSenateList);
 
-        tabIndex = 1;
+
         new LegislatorAsyncTask().execute(HttpUtils.getAllLegislators);
         tabHost = (TabHost) legislatorView.findViewById(R.id.tabhost);
         tabHost.setup();
@@ -116,11 +116,11 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
         @Override
         protected void onPostExecute(List<Legislator> result) {
 
-            LegislatorJsonAdapter adapter = new LegislatorJsonAdapter(getActivity(), AllLegislators);
+            LegislatorListAdapter adapter = new LegislatorListAdapter(getActivity(), AllLegislators);
             lstView.setAdapter(adapter);
-            LegislatorJsonAdapter adapter2 = new LegislatorJsonAdapter(getActivity(), houseLegislators);
+            LegislatorListAdapter adapter2 = new LegislatorListAdapter(getActivity(), houseLegislators);
             lstHouse.setAdapter(adapter2);
-            LegislatorJsonAdapter adapter3 = new LegislatorJsonAdapter(getActivity(), senateLegislators);
+            LegislatorListAdapter adapter3 = new LegislatorListAdapter(getActivity(), senateLegislators);
             lstSenate.setAdapter(adapter3);
             SidebarUtils.getIndexList(AllLegislators, mapIndex, "state");
             displayIndex("All", mapIndex);

@@ -24,28 +24,30 @@ import java.util.Date;
 public class LegislatorDetails extends AppCompatActivity {
 
     private Legislator legislator;
-    private ImageView photo;
-    private TextView name;
-    private TextView party;
-    private ImageView party_img;
-    private TextView email;
-    private TextView chamber;
-    private TextView contact;
-    private TextView start_term;
-    private TextView end_term;
-    private ProgressBar termBar;
-    private TextView bar_percentage;
-    private TextView office;
-    private TextView state;
     private ImageSwitcher favoriteBtn;
-    private ImageView facebookBtn;
-    private ImageView twitterBtn;
-    private ImageView websiteBtn;
     private boolean saved = false;
     private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        ImageView photo;
+        TextView name;
+        TextView party;
+        ImageView party_img;
+        TextView email;
+        TextView chamber;
+        TextView contact;
+        TextView start_term;
+        TextView end_term;
+        ProgressBar termBar;
+        TextView bar_percentage;
+        TextView office;
+        TextView state;
+        ImageView facebookBtn;
+        ImageView twitterBtn;
+        ImageView websiteBtn;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.legislator_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
@@ -59,7 +61,7 @@ public class LegislatorDetails extends AppCompatActivity {
         });
         getSupportActionBar().setTitle("Legislator Info");
 
-        preferences = getSharedPreferences("favor_legis", MODE_APPEND);
+        preferences = getSharedPreferences("favorLegislators", MODE_APPEND);
         photo = (ImageView) findViewById(R.id.legis_photo);
         name = (TextView) findViewById(R.id.tv_name_data);
         party_img = (ImageView) findViewById(R.id.party_icon);

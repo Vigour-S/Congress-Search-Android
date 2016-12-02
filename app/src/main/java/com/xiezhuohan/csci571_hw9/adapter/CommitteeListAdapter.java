@@ -6,9 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import com.xiezhuohan.csci571_hw9.R;
-import com.xiezhuohan.csci571_hw9.model.bills.Bill;
+import com.xiezhuohan.csci571_hw9.model.committees.Committee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +15,11 @@ import java.util.List;
 /**
  * Created by xiezhuohan on 11/27/16.
  */
-
-public class BillJsonAdapter extends BaseAdapter {
-    private List<Bill> data = new ArrayList<Bill>();
+public class CommitteeListAdapter extends BaseAdapter {
+    private List<Committee> data = new ArrayList<Committee>();
     private LayoutInflater inflater;
 
-
-    public BillJsonAdapter(Context context, List<Bill> data) {
+    public CommitteeListAdapter(Context context, List<Committee> data) {
         super();
         this.data = data;
         inflater = LayoutInflater.from(context);
@@ -44,33 +41,26 @@ public class BillJsonAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.bill_layout, null);
-            viewHolder.bill_id = (TextView) convertView
-                    .findViewById(R.id.tv_billid);
-            viewHolder.bill_title = (TextView) convertView
-                    .findViewById(R.id.tv_billtitle);
-            viewHolder.bill_date = (TextView) convertView
-                    .findViewById(R.id.tv_billdate);
+            convertView = inflater.inflate(R.layout.committee_layout, null);
+            viewHolder.committee_id = (TextView) convertView.findViewById(R.id.tv_com_id);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.tv_com_name);
+            viewHolder.chamber = (TextView) convertView.findViewById(R.id.tv_com_chamber);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.bill_id.setText(data.get(position).bill_id);
-        if(data.get(position).short_title!=null) {
-            viewHolder.bill_title.setText(data.get(position).short_title);
-        }
-        else{
-            viewHolder.bill_title.setText(data.get(position).official_title);
-        }
-        viewHolder.bill_date.setText(data.get(position).introduced_on);
+        viewHolder.committee_id.setText(data.get(position).committee_id);
+        viewHolder.name.setText(data.get(position).name);
+        viewHolder.chamber.setText(data.get(position).chamber);
 
         return convertView;
     }
+
     private class ViewHolder{
-        public TextView bill_id,bill_title, bill_date;
+        private TextView committee_id,name, chamber;
     }
 }

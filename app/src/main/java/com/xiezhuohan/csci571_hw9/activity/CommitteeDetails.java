@@ -18,24 +18,26 @@ import com.xiezhuohan.csci571_hw9.model.committees.Committee;
  * Created by xiezhuohan on 11/27/16.
  */
 public class CommitteeDetails extends AppCompatActivity {
-    private TextView committee_id;
-    private TextView committee_name;
-    private TextView committee_chamber;
-    private TextView committee_parent;
-    private TextView committee_contact;
-    private TextView committee_office;
-    private ImageView committee_chamber_icon;
 
     private ImageSwitcher favor_btn;
     private Committee committee;
     private boolean saved;
-    SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+         TextView committee_id;
+         TextView committee_name;
+         TextView committee_chamber;
+         TextView committee_parent;
+         TextView committee_contact;
+         TextView committee_office;
+         ImageView committee_chamber_icon;
+         SharedPreferences preferences;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.committees_details);
-        preferences = getSharedPreferences("favor_committees", MODE_APPEND);
+        preferences = getSharedPreferences("favorCommittees", MODE_APPEND);
         final SharedPreferences.Editor editor = preferences.edit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar_bill);
         setSupportActionBar(toolbar);

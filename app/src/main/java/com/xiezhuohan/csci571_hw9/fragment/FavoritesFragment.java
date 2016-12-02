@@ -13,9 +13,9 @@ import android.widget.*;
 import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
 import com.xiezhuohan.csci571_hw9.Utils.SidebarUtils;
-import com.xiezhuohan.csci571_hw9.adapter.BillJsonAdapter;
-import com.xiezhuohan.csci571_hw9.adapter.ComJsonAdapter;
-import com.xiezhuohan.csci571_hw9.adapter.LegislatorJsonAdapter;
+import com.xiezhuohan.csci571_hw9.adapter.BillListAdapter;
+import com.xiezhuohan.csci571_hw9.adapter.CommitteeListAdapter;
+import com.xiezhuohan.csci571_hw9.adapter.LegislatorListAdapter;
 import com.xiezhuohan.csci571_hw9.model.bills.Bill;
 import com.xiezhuohan.csci571_hw9.model.committees.Committee;
 import com.xiezhuohan.csci571_hw9.model.legislators.Legislator;
@@ -27,6 +27,7 @@ import java.util.Map;
 
 
 public class FavoritesFragment extends Fragment implements AdapterView.OnItemClickListener, TabHost.TabContentFactory, TabHost.OnTabChangeListener, View.OnClickListener {
+
     private View favorView;
     private ListView lvFavorLegislators;
     private ListView lvFavorBills;
@@ -34,7 +35,6 @@ public class FavoritesFragment extends Fragment implements AdapterView.OnItemCli
     private List<Legislator> favorLegislators;
     private List<Bill> favorBills;
     private List<Committee> favorCommittees;
-    private TabHost tabHost;
     private Map<String, Integer> mapIndex = new LinkedHashMap<String, Integer>();
     private SharedPreferences preLegislators;
     private SharedPreferences preBills;
@@ -43,6 +43,9 @@ public class FavoritesFragment extends Fragment implements AdapterView.OnItemCli
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        TabHost tabHost;
+
         favorView = inflater.inflate(R.layout.favorite_layout, container, false);
         lvFavorLegislators = (ListView) favorView.findViewById(R.id.favorlegisList);
         lvFavorBills = (ListView) favorView.findViewById(R.id.favoriteBillList);
@@ -55,17 +58,20 @@ public class FavoritesFragment extends Fragment implements AdapterView.OnItemCli
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Committees").setContent(R.id.tab3));
         tabHost.setCurrentTab(0);
         tabHost.setOnTabChangedListener(this);
-        preLegislators = this.getActivity().getSharedPreferences("favor_legis", Context.MODE_APPEND);
-        preBills = this.getActivity().getSharedPreferences("favor_bills", Context.MODE_APPEND);
-        preCommittees = this.getActivity().getSharedPreferences("favor_committees", Context.MODE_APPEND);
-        Map<String, String> legisMap = (Map<String, String>) preLegislators.getAll();
-        Map<String, String> billsMap = (Map<String, String>) preBills.getAll();
-        Map<String, String> comsMap = (Map<String, String>) preCommittees.getAll();
+        preLegislators = this.getActivity().getSharedPreferences("favorLegislators", Context.MODE_APPEND);
+        preBills = this.getActivity().getSharedPreferences("favorBills", Context.MODE_APPEND);
+        preCommittees = this.getActivity().getSharedPreferences("favorCommittees", Context.MODE_APPEND);
+
+        Map<String, String> legislatorMap, billsMap, committeesMap;
+        legislatorMap = (Map<String, String>) preLegislators.getAll();
+        billsMap = (Map<String, String>) preBills.getAll();
+        committeesMap = (Map<String, String>) preCommittees.getAll();
+
         final Gson gson = new Gson();
-        favorLegislators = new ArrayList<Legislator>();
-        favorBills = new ArrayList<Bill>();
-        favorCommittees = new ArrayList<Committee>();
-        for (Map.Entry<String, String> entry : legisMap.entrySet()) {
+        favorLegislators = new ArrayList<>();
+        favorBills = new ArrayList<>();
+        favorCommittees = new ArrayList<>();
+        for (Map.Entry<String, String> entry : legislatorMap.entrySet()) {
             favorLegislators.add(gson.fromJson(entry.getValue(), Legislator.class));
         }
         SidebarUtils.getIndexList(favorLegislators, mapIndex, "name");
@@ -73,15 +79,16 @@ public class FavoritesFragment extends Fragment implements AdapterView.OnItemCli
         for (Map.Entry<String, String> entry : billsMap.entrySet()) {
             favorBills.add(gson.fromJson(entry.getValue(), Bill.class));
         }
-        for (Map.Entry<String, String> entry : comsMap.entrySet()) {
+        for (Map.Entry<String, String> entry : committeesMap.entrySet()) {
             favorCommittees.add(gson.fromJson(entry.getValue(), Committee.class));
         }
-        LegislatorJsonAdapter adapter1 = new LegislatorJsonAdapter(getActivity(), favorLegislators);
-        BillJsonAdapter adapter2 = new BillJsonAdapter(getActivity(), favorBills);
-        ComJsonAdapter adapter3 = new ComJsonAdapter(getActivity(), favorCommittees);
+        LegislatorListAdapter adapter1 = new LegislatorListAdapter(getActivity(), favorLegislators);
+        BillListAdapter adapter2 = new BillListAdapter(getActivity(), favorBills);
+        CommitteeListAdapter adapter3 = new CommitteeListAdapter(getActivity(), favorCommittees);
         lvFavorBills.setAdapter(adapter2);
         lvFavorLegislators.setAdapter(adapter1);
         lvFavorCommittees.setAdapter(adapter3);
+
         lvFavorLegislators.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -121,28 +128,31 @@ public class FavoritesFragment extends Fragment implements AdapterView.OnItemCli
     @Override
     public void onResume() {
         super.onResume();
-        preLegislators = this.getActivity().getSharedPreferences("favor_legis", Context.MODE_APPEND);
-        preBills = this.getActivity().getSharedPreferences("favor_bills", Context.MODE_APPEND);
-        preCommittees = this.getActivity().getSharedPreferences("favor_committees", Context.MODE_APPEND);
-        Map<String, String> legisMap = (Map<String, String>) preLegislators.getAll();
-        Map<String, String> billsMap = (Map<String, String>) preBills.getAll();
-        Map<String, String> comsMap = (Map<String, String>) preCommittees.getAll();
+        preLegislators = this.getActivity().getSharedPreferences("favorLegislators", Context.MODE_APPEND);
+        preBills = this.getActivity().getSharedPreferences("favorBills", Context.MODE_APPEND);
+        preCommittees = this.getActivity().getSharedPreferences("favorCommittees", Context.MODE_APPEND);
+
+        Map<String, String> legislatorMap, billsMap, committeesMap;
+        legislatorMap = (Map<String, String>) preLegislators.getAll();
+        billsMap = (Map<String, String>) preBills.getAll();
+        committeesMap = (Map<String, String>) preCommittees.getAll();
+
         final Gson gson = new Gson();
-        favorLegislators = new ArrayList<Legislator>();
-        favorBills = new ArrayList<Bill>();
-        favorCommittees = new ArrayList<Committee>();
-        for (Map.Entry<String, String> entry : legisMap.entrySet()) {
+        favorLegislators = new ArrayList<>();
+        favorBills = new ArrayList<>();
+        favorCommittees = new ArrayList<>();
+        for (Map.Entry<String, String> entry : legislatorMap.entrySet()) {
             favorLegislators.add(gson.fromJson(entry.getValue(), Legislator.class));
         }
         for (Map.Entry<String, String> entry : billsMap.entrySet()) {
             favorBills.add(gson.fromJson(entry.getValue(), Bill.class));
         }
-        for (Map.Entry<String, String> entry : comsMap.entrySet()) {
+        for (Map.Entry<String, String> entry : committeesMap.entrySet()) {
             favorCommittees.add(gson.fromJson(entry.getValue(), Committee.class));
         }
-        LegislatorJsonAdapter adapter1 = new LegislatorJsonAdapter(getActivity(), favorLegislators);
-        BillJsonAdapter adapter2 = new BillJsonAdapter(getActivity(), favorBills);
-        ComJsonAdapter adapter3 = new ComJsonAdapter(getActivity(), favorCommittees);
+        LegislatorListAdapter adapter1 = new LegislatorListAdapter(getActivity(), favorLegislators);
+        BillListAdapter adapter2 = new BillListAdapter(getActivity(), favorBills);
+        CommitteeListAdapter adapter3 = new CommitteeListAdapter(getActivity(), favorCommittees);
         lvFavorBills.setAdapter(adapter2);
         lvFavorLegislators.setAdapter(adapter1);
         lvFavorCommittees.setAdapter(adapter3);
@@ -161,7 +171,7 @@ public class FavoritesFragment extends Fragment implements AdapterView.OnItemCli
 
     private void displayIndex(Map<String, Integer> mapIndex) {
         LinearLayout indexLayout;
-        indexLayout = (LinearLayout) favorView.findViewById(R.id.side_index4);
+        indexLayout = (LinearLayout) favorView.findViewById(R.id.fav_side_index);
         TextView textView;
         List<String> indexList = new ArrayList<String>(mapIndex.keySet());
         for (String index : indexList) {

@@ -14,17 +14,18 @@ import android.widget.TabHost;
 import com.google.gson.Gson;
 import com.xiezhuohan.csci571_hw9.R;
 import com.xiezhuohan.csci571_hw9.Utils.HttpUtils;
-import com.xiezhuohan.csci571_hw9.adapter.ComJsonAdapter;
+import com.xiezhuohan.csci571_hw9.adapter.CommitteeListAdapter;
 import com.xiezhuohan.csci571_hw9.model.committees.Committee;
 import com.xiezhuohan.csci571_hw9.model.committees.Committees;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
 public class CommitteesFragment extends Fragment implements AdapterView.OnItemClickListener, TabHost.TabContentFactory, TabHost.OnTabChangeListener {
-    private View committeeView;
-    private TabHost tabHost;
+
     private ListView lstHouse;
     private ListView lstSenate;
     private ListView lstJoint;
@@ -36,6 +37,10 @@ public class CommitteesFragment extends Fragment implements AdapterView.OnItemCl
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View committeeView;
+        TabHost tabHost;
+
         committeeView = inflater.inflate(R.layout.fragment_committees, container, false);
 
         tabHost = (TabHost) committeeView.findViewById(R.id.tabhost);
@@ -78,11 +83,11 @@ public class CommitteesFragment extends Fragment implements AdapterView.OnItemCl
         protected void onPostExecute(List<Committee> committees) {
             super.onPostExecute(committees);
 
-            ComJsonAdapter adapter1 = new ComJsonAdapter(getActivity(), comHouseList);
+            CommitteeListAdapter adapter1 = new CommitteeListAdapter(getActivity(), comHouseList);
             lstHouse.setAdapter(adapter1);
-            ComJsonAdapter adapter2 = new ComJsonAdapter(getActivity(), comSenateList);
+            CommitteeListAdapter adapter2 = new CommitteeListAdapter(getActivity(), comSenateList);
             lstSenate.setAdapter(adapter2);
-            ComJsonAdapter adapter3 = new ComJsonAdapter(getActivity(), comJointList);
+            CommitteeListAdapter adapter3 = new CommitteeListAdapter(getActivity(), comJointList);
             lstJoint.setAdapter(adapter3);
         }
     }
@@ -92,9 +97,9 @@ public class CommitteesFragment extends Fragment implements AdapterView.OnItemCl
         String results = HttpUtils.getJSONFromHTTP(jsonUrl);
         Gson gson = new Gson();
         comAllList = gson.fromJson(results, Committees.class).results;
-        comHouseList = new ArrayList<Committee>();
-        comSenateList = new ArrayList<Committee>();
-        comJointList = new ArrayList<Committee>();
+        comHouseList = new ArrayList<>();
+        comSenateList = new ArrayList<>();
+        comJointList = new ArrayList<>();
         for (Committee entry : comAllList) {
             if (entry.chamber.equals("house")) {
                 comHouseList.add(entry);
@@ -104,7 +109,17 @@ public class CommitteesFragment extends Fragment implements AdapterView.OnItemCl
                 comJointList.add(entry);
             }
         }
+        Comparator<Committee> committeeComparator = new Comparator<Committee>() {
+            public int compare(Committee o1, Committee o2) {
+                if (o1.name.equals(o2.name))
+                    return 0;
+                return o1.name.compareTo(o2.name);
+            }
+        };
 
+        Collections.sort(comHouseList, committeeComparator);
+        Collections.sort(comSenateList,committeeComparator);
+        Collections.sort(comJointList, committeeComparator);
         return comAllList;
     }
 
