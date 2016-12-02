@@ -155,27 +155,24 @@ public class LegislatorsFragment extends Fragment implements AdapterView.OnItemC
             }
         }
 
-        Collections.sort(AllLegislators, new Comparator<Legislator>() {
+        Comparator<Legislator> allLegislatorComparator = new Comparator<Legislator>() {
             public int compare(Legislator o1, Legislator o2) {
                 if (o1.state_name.equals(o2.state_name))
                     return 0;
                 return o1.state_name.compareTo(o2.state_name);
             }
-        });
-        Collections.sort(houseLegislators, new Comparator<Legislator>() {
+        };
+        Comparator<Legislator> legislatorComparator = new Comparator<Legislator>() {
             public int compare(Legislator o1, Legislator o2) {
                 if (o1.name.equals(o2.name))
                     return 0;
                 return o1.name.compareTo(o2.name);
             }
-        });
-        Collections.sort(senateLegislators, new Comparator<Legislator>() {
-            public int compare(Legislator o1, Legislator o2) {
-                if (o1.name.equals(o2.name))
-                    return 0;
-                return o1.name.compareTo(o2.name);
-            }
-        });
+        };
+
+        Collections.sort(AllLegislators, allLegislatorComparator);
+        Collections.sort(houseLegislators, legislatorComparator);
+        Collections.sort(senateLegislators, legislatorComparator);
 
         return AllLegislators;
     }
